@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
-
+import operaciones.Procesos;
 public class VentanaOperaciones extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
@@ -29,9 +29,11 @@ public class VentanaOperaciones extends JFrame implements ActionListener {
 	private JLabel lblPromedio;
 	private JLabel lblResultado;
 	private JButton btnCalcular;
-
+	Procesos misProcesos;
 
 	public VentanaOperaciones() {
+		misProcesos=new Procesos();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setResizable(false);
@@ -149,14 +151,17 @@ public class VentanaOperaciones extends JFrame implements ActionListener {
 			double n1=Double.parseDouble(txtNota1.getText());
 			double n2=Double.parseDouble(txtNota2.getText());
 			double n3=Double.parseDouble(txtNota3.getText());
+			
+			misProcesos.calcularPromedio(n1, n2, n3);
+			
 			double promedio=(n1+n2+n3)/3;
 			
 			System.out.println("El promedio de las notas es: "+promedio);
 			
 			lblResPromedio.setText(promedio+"");
+			String resultado=misProcesos.calcularDefinitiva(promedio);
 			
-			
-			if (promedio>=3.5) {
+			if (resultado.equals("GANA")) {
 				lblResultado.setText("RESULTADO: Gana la materia");
 				lblResultado.setForeground(Color.GREEN);
 			}else {
